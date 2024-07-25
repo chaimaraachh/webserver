@@ -7,5 +7,17 @@ import (
 )
 
 func main() {
-	
+	fileServer := http.fileServer(http.Dir("./static"))
+	http.Handle("/",fileServer)
+	http.HandleFunc("/form",formHandler)
+	http.HandleFunc("/hello",helloHandler)
+
+
+	fmt.Printf("Starting server at port 8080")
+
+	if err := http.ListenAndServer(":8080", nil); err != nil {
+		log.Fatal(err)
+	}
+
+
 }
